@@ -1,0 +1,531 @@
+/* --- CONFIGURAÇÕES GERAIS E TRANSICÃO DE TEMA --- */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    transition: background 0.4s ease, color 0.4s ease;
+    background: #f1f5f9;
+    color: #1e293b;
+    overflow-x: hidden;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* --- ANIMAÇÕES (Keyframes) --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(76, 123, 232, 0.6); }
+    70% { box-shadow: 0 0 0 12px rgba(76, 123, 232, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 123, 232, 0); }
+}
+
+.animar-entrada {
+    animation: fadeInUp 0.7s ease-out forwards;
+}
+
+.animar-entrada-atraso {
+    animation: fadeInUp 0.7s ease-out 0.3s forwards;
+    opacity: 0;
+}
+
+/* --- MENU --- */
+.menu { 
+    overflow: hidden;
+    background: #1e293b; 
+    padding: 15px 0; 
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 100;
+}
+.menu-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: translateZ(0);
+}
+.menu nav a { 
+    color: #cbd5e1; 
+    margin-left: 20px; 
+    text-decoration: none; 
+    font-size: 14px; 
+    transition: 0.3s;
+}
+.menu nav a:hover { color: #3b82f6; }
+.logo { color: white; margin: 0; font-weight: 800; }
+
+.botaoTema {
+    background: #334155;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 0.2s;
+}
+.botaoTema:active { transform: scale(0.9); }
+
+/* --- LAYOUT CENTRALIZADO E LARGURA --- */
+.secao-principal {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    width: 100%;
+}
+
+.layout {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+    width: 100%; 
+    margin: 0 auto; 
+    padding: 60px 20px;
+    flex-wrap: wrap;
+    justify-content: center; 
+}
+.coluna-calculadora { flex: 1.3; min-width: 320px; width: 100%; }
+.coluna-texto { flex: 0.7; min-width: 300px; }
+.coluna-texto p { line-height: 1.7; color: #475569; }
+
+/* --- CARD E SOMBRAS --- */
+.card {
+    padding: 35px;
+    border-radius: 24px;
+    background: white;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 5px 15px rgba(0,0,0,0.04);
+    border: 1px solid rgba(255,255,255,0.8);
+    width: 100%;
+    box-sizing: border-box; /* Garante padding correto */
+}
+
+.card h1 { margin-top: 0; font-size: 26px; letter-spacing: -0.5px; }
+
+.campo { margin-top: 22px; width: 100%; }
+.campo label { 
+    display: flex; 
+    align-items: center; 
+    margin-bottom: 8px; 
+    font-weight: 600; 
+    font-size: 14px; 
+}
+
+/* TOOLTIP ESTILIZADO */
+.help-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px;
+    height: 17px;
+    background-color: #94a3b8;
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    cursor: help;
+    margin-left: 8px;
+    transition: 0.3s;
+}
+.help-icon:hover { background-color: #4c7be8; }
+
+.tooltip-text {
+    visibility: hidden;
+    width: 220px;
+    background-color: #1e293b;
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    padding: 12px;
+    position: absolute;
+    z-index: 10;
+    bottom: 160%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    font-weight: normal;
+    font-size: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.help-icon:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* INPUTS E SELECTS UNIFICADOS (Garante mesmo tamanho) */
+input, select {
+    width: 100%;
+    height: 48px;
+    padding: 10px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: 0.3s;
+    background: #f8fafc;
+    box-sizing: border-box; /* Crucial para o tamanho unificado */
+}
+input:focus, select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* CHECKBOX */
+.campo-check {
+    margin: 25px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.checkbox-container input {
+    width: 20px;
+    height: 20px;
+    accent-color: #4c7be8;
+}
+.label-text { font-size: 14px; color: #ffffff; user-select: none; }
+
+/* BOTÃO CALCULAR */
+.botaoCalcular {
+    width: 100%;
+    background: #4c7be8;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 25px;
+    font-weight: 700;
+    font-size: 16px;
+    transition: 0.3s;
+    animation: pulse 2.5s infinite;
+}
+.botaoCalcular:hover { 
+    background: #2563eb; 
+    transform: translateY(-2px);
+    animation: none;
+}
+
+/* RESULTADOS */
+.resultado { 
+    margin-top: 30px; 
+    padding: 20px; 
+    border-radius: 16px; 
+    background: #f1f5f9; 
+    border: 1px solid #e2e8f0; 
+}
+.resultado-titulo { display: flex; justify-content: space-between; font-size: 11px; color: #64748b; margin-top: 15px; text-transform: uppercase; font-weight: 700; }
+.resultado-linha { display: flex; justify-content: space-between; padding: 12px 0; font-weight: 600; border-bottom: 1px solid #e2e8f0; }
+.destaque { color: #3b82f6; border-bottom: none; font-size: 22px; padding-top: 15px; }
+
+/* SEÇÃO TABELA E IMAGEM */
+.secao-tabela { padding: 80px 20px; text-align: center; background: #fff; width: 100%; display: flex; justify-content: center; }
+.imagemTabela { 
+    display: block; 
+    margin: 40px auto;
+    width: 100%; 
+    max-width: 100%; 
+    height: auto;
+    border-radius: 20px; 
+    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.imagemTabela:hover {
+    transform: scale(1.03) translateY(-10px);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.18);
+}
+
+/* FOOTER */
+.footer { text-align: center; padding: 60px; background: #1e293b; color: #94a3b8; width: 100%; }
+
+/* --- DARK MODE --- */
+body.dark { background: #0f172a; color: #f1f5f9; }
+body.dark .card { background: #1e293b; border-color: #334155; box-shadow: 0 25px 50px rgba(0,0,0,0.4); }
+body.dark .coluna-texto p { color: #94a3b8; }
+body.dark input, body.dark select { background: #0f172a; color: white; border-color: #334155; }
+body.dark .resultado { background: #020617; border-color: #334155; }
+body.dark .resultado-linha { border-color: #334155; }
+body.dark .destaque { color: #4ade80; }
+body.dark .secao-tabela { background: #0f172a; }
+body.dark .imagemTabela { box-shadow: 0 30px 70px rgba(0,0,0,0.6); }
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .secao-principal, .secao-tabela, .footer { width: 100%; box-sizing: border-box; }
+    .layout { padding: 40px 20px; gap: 40px; max-width: 100%; }
+    .coluna-calculadora, .coluna-texto { flex: 100%; width: 100%; }
+    .card { padding: 20px; }
+    .botaoCalcular { animation: none; }
+}
+/* --- FOOTER SIMPLIFICADO --- */
+.footer {
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 50px 20px 40px;
+    margin-top: 80px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-container {
+    max-width: 900px; /* Mantém o alinhamento de 900px da calculadora */
+    margin: 0 auto;
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.footer-col.centralizado {
+    text-align: center;
+    max-width: 600px;
+}
+
+.footer-col h3.logo-footer {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.footer-col p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin: 0;
+}
+
+/* LINHA INFERIOR */
+.footer-bottom {
+    border-top: 1px solid rgba(148, 163, 184, 0.1);
+    padding-top: 25px;
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+}
+
+/* AJUSTE DARK MODE */
+body.dark .footer {
+    background: #020617;
+}
+/* Container para os dois checkboxes ficarem lado a lado */
+.grupo-checkbox {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 25px 0;
+}
+
+/* Alinhamento de cada item (checkbox + texto) */
+.item-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Classe para o campo de FCP começar escondido */
+.fcp-input-oculto {
+    display: none;
+    margin-top: 10px;
+}
+
+/* Animação suave quando o campo aparecer (opcional, já que você tem keyframes) */
+#campoFCPInput {
+    animation: fadeInUp 0.4s ease;
+}
+/* --- CHECKBOX CIRCULAR PERFEITO --- */
+.campo-check {
+    margin: 25px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.checkbox-container {
+    display: inline-flex; /* Mudado para inline-flex para não esticar */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 22px; 
+    height: 22px;
+    flex-shrink: 0; /* Impede que o container achate */
+}
+
+.checkbox-container input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px; /* Tamanho fixo */
+    height: 20px; /* Tamanho fixo */
+    border: 2.5px solid #475569; 
+    border-radius: 50%; /* Garante o círculo */
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0; /* Impede que o input fique oval */
+    box-sizing: border-box;
+}
+
+/* Quando marcado: Fundo escuro */
+.checkbox-container input[type="checkbox"]:checked {
+    background: #1e293b; 
+    border-color: #1e293b;
+}
+
+/* O "ponto final" branco dentro */
+.checkbox-container input[type="checkbox"]:checked::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    border-radius: 50%;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* --- AJUSTE DARK MODE (MAIS ESCURO E VISÍVEL) --- */
+body.dark .checkbox-container input[type="checkbox"] {
+    background: #0f172a;
+    border-color: #64748b; /* Borda mais visível no escuro */
+}
+
+body.dark .checkbox-container input[type="checkbox"]:checked {
+    background: #4c7be8; /* Azul destaque para o ponto final */
+    border-color: #4c7be8;
+}
+/* Ajuste para o seletor de FCP aparecer ao lado */
+#fcp_select {
+    border-radius: 8px;
+    font-size: 13px;
+    border: 2px solid #475569;
+    background: #fff;
+    cursor: pointer;
+    animation: fadeInSlide 0.3s ease;
+}
+
+@keyframes fadeInSlide {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+body.dark #fcp_select {
+    background: #1e293b;
+    color: #fff;
+    border-color: #64748b;
+}
+@media (max-width: 1024px) {
+    .layout {
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+        gap: 30px;
+    }
+
+    .coluna-calculadora,
+    .coluna-texto {
+        width: 100%;
+        max-width: 700px;
+        flex: none;
+    }
+    .imagemTabela {
+        max-width: 100%;
+        height: auto;
+    }
+}
+/* Ajuste específico para o ícone dentro da área de resultados */
+.resultado-linha span .help-icon {
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+/* Garante que o tooltip não fique cortado se o card for pequeno */
+.resultado {
+    position: relative; 
+}
+.secao-explicao {
+    padding: 60px 20px;
+    background: #f8fafc;
+    display: flex;
+    justify-content: center;
+}
+
+body.dark .secao-explicao {
+    background: #0f172a;
+}
+
+.container-texto {
+    max-width: 900px;
+    width: 100%;
+    line-height: 1.8;
+}
+
+.grid-explicao {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin: 30px 0;
+}
+
+.formula-box {
+    background: #e2e8f0;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    margin: 40px 0;
+}
+
+body.dark .formula-box {
+    background: #1e293b;
+    border: 1px solid #334155;
+}
+
+.formula {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2563eb;
+    margin: 15px 0;
+}
+
+body.dark .formula {
+    color: #4ade80;
+}
+
+@media (max-width: 768px) {
+    .grid-explicao {
+        grid-template-columns: 1fr;
+    }
+}

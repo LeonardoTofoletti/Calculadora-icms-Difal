@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora DIFAL ICMS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark">
+
+<header class="menu">
+    <div class="menu-container">
+        <h2 class="logo">Calculadora ICMS</h2>
+        <nav>
+            <a href="#calculadora">Calculadora</a>
+            <a href="#info">Sobre DIFAL</a>
+            <a href="#tabela">Tabela ICMS</a>
+            <a href="#basedupla">Explicação base dupla ICMS difal</a>
+        </nav>
+        <button id="toggleTema" class="botaoTema">☀️</button>
+    </div>
+</header>
+
+<section id="calculadora" class="secao-principal">
+    <div class="layout">
+        
+        <div class="coluna-calculadora">
+            <div class="card animar-entrada">
+                <h1>Calculadora DIFAL</h1>
+
+                <div class="campo">
+                    <label>Valor do produto (R$)</label>
+                    <input type="text" id="valor" placeholder="0,00">
+                </div>
+
+                <div class="campo-check">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="importado">
+                    </label>
+                    <span class="label-text">Mercadoria Importada? (Alíquota 4%)</span>
+                </div>
+
+                <div class="campo-check">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="ativarFCP" onchange="toggleFCP()">
+                    </label>
+                    <span class="label-text">FCP?</span>
+
+                    <select id="fcp_select" style="display: none; width: auto; height: 35px; margin-left: 10px; padding: 2px 10px;">
+                        <option value="1">1%</option>
+                        <option value="2">2%</option>
+                    </select>
+                </div>
+
+                <div class="campo-check">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="baseDupla">
+                    </label>
+                    <span class="label-text">Base dupla (ICMS por dentro)</span>
+                </div>
+                
+                <div class="campo">
+                    <label>
+                        Estado de origem 
+                        <span class="help-icon">
+                            ?
+                            <span class="tooltip-text">UF de onde a mercadoria está saindo (onde o vendedor está).</span>
+                        </span>
+                    </label>
+                    <select id="origem">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label>
+                        Estado de destino 
+                        <span class="help-icon">
+                            ?
+                            <span class="tooltip-text">UF para onde a mercadoria será entregue (onde o comprador está).</span>
+                        </span>
+                    </label>
+                    <select id="destino">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+                
+                <button class="botaoCalcular" onclick="calcular()">Calcular</button>
+
+                <h2>Resultado</h2>
+
+                <div class="resultado">
+                    <div class="resultado-titulo">
+                        <span>Perc. da BC na UF de destino</span>
+                        <span>Valor da BC na UF de destino</span>
+                    </div>
+                    <div class="resultado-linha">
+                        <span>100%</span>
+                        <span id="resBase">R$ 0,00</span>
+                    </div>
+                    <div class="resultado-linha base-dupla" style="display:none;">
+                        <span>Base ICMS (dupla)
+                            <span class="help-icon">
+                                i
+                                <span class="tooltip-text">A base é "reajustada" porque o imposto integra sua própria base de cálculo (cálculo por dentro), conforme a legislação do DIFAL.</span>
+                            </span>
+                        </span>
+                        <span id="resBaseDupla">R$ 0,00</span>
+                    </div>
+                    <div class="resultado-titulo">
+                        <span>Alíq. interna da UF de destino</span>
+                        <span>Valor interno da UF de destino</span>
+                    </div>
+                    <div class="resultado-linha">
+                        <span id="resAliqInterna">-</span>
+                        <span id="resValorInterno">R$ 0,00</span>
+                    </div>
+
+                    <div class="resultado-titulo">
+                        <span>Alíq. interestadual</span>
+                        <span>Valor interestadual</span>
+                    </div>
+                    <div class="resultado-linha">
+                        <span id="resAliqInterestadual">-</span>
+                        <span id="resValorInterestadual">R$ 0,00</span>
+                    </div>
+                    
+                    <div class="resultado-titulo fcp-linha" style="display:none;">
+                        <span>Alíquota FCP destino</span>
+                        <span>Valor FCP destino</span>
+                    </div>
+
+                    <div class="resultado-linha fcp-linha" style="display:none;">
+                        <span id="resAliqFCP">-</span>
+                        <span id="resValorFCP">R$ 0,00</span>
+                    </div>
+
+                    <div class="resultado-titulo">
+                        <span>Percentual DIFAL</span>
+                        <span>Valor DIFAL</span>
+                    </div>
+
+                    <div class="resultado-linha destaque">
+                        <span id="resDifal">-</span>
+                        <span id="resValorDifal">R$ 0,00</span>
+                    </div>
+
+                    <div class="resultado-titulo total-destino" style="display:none;">
+                        <span>Difal + FCP</span>
+                        <span>Valor total</span>
+                    </div>
+
+                    <div class="resultado-linha destaque total-destino" style="display:none;">
+                        <span>Total a recolher</span>
+                        <span id="resTotalDestino">R$ 0,00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="info" class="coluna-texto animar-entrada-atraso">
+            <h2>O que é DIFAL?</h2>
+            <p>O DIFAL (Diferencial de Alíquota do ICMS) é um imposto aplicado quando uma mercadoria é vendida de um estado para outro.</p>
+
+            <h2>Quem deve pagar?</h2>
+            <p>Nas operações destinadas a <b>não contribuintes</b> (pessoas físicas), a responsabilidade de recolher o DIFAL é da <b>empresa vendedora</b>. Já em operações entre empresas (contribuintes), o comprador costuma ser o responsável.</p>
+
+            <h2>Quando o DIFAL é aplicado?</h2>
+            <p>O diferencial de alíquota ocorre em operações interestaduais destinadas a consumidor final.</p>
+
+            <h2>Como funciona o cálculo?</h2>
+            <p>Considera a diferença entre a alíquota interna do destino e a alíquota interestadual (4%, 7% ou 12%).</p>
+
+            <h2>O que é o FCP?</h2>
+            <p>Alguns estados aplicam o <b>Fundo de Combate à Pobreza</b>, um adicional de até 2% sobre a alíquota interna em produtos específicos. Fique atento se o estado de destino exige este adicional!</p>
+        </div>
+
+    </div>
+</section>
+
+<section id="tabela" class="secao-tabela">
+    <div class="container-tabela">
+        <h2>Quanto é o ICMS?</h2>
+        <p>Consulte as alíquotas interestaduais na tabela de referência abaixo:</p>
+        <img class="imagemTabela" src="tabela-icms.png" alt="Tabela ICMS">
+    </div>
+</section>
+<section id="basedupla" class="secao-explicao">
+    <div class="container-texto">
+        <h2>Entendendo o ICMS com Base Dupla (Cálculo por Dentro)</h2>
+        <p>
+            Se você já reparou que o valor da base de cálculo no resultado é maior do que o valor do produto que você digitou, você encontrou a famosa <b>Base Dupla</b>. 
+            Esse método, também conhecido como "gross-up", é uma exigência legal em diversos estados brasileiros para o cálculo do DIFAL.
+        </p>
+
+        <div class="grid-explicao">
+            <div class="item-explicao">
+                <h3>O que é o "Cálculo por Dentro"?</h3>
+                <p>
+                    No Brasil, o ICMS é um imposto que incide sobre si mesmo. Isso significa que o valor do imposto faz parte da sua própria base de cálculo. 
+                    Quando usamos a Base Dupla, o objetivo é "recompor" o valor da operação como se a alíquota interna do estado de destino já estivesse embutida no preço desde o início.
+                </p>
+            </div>
+
+            <div class="item-explicao">
+                <h3>Por que o valor aumenta?</h3>
+                <p>
+                    Para que o estado de destino receba a carga tributária correta, a lei exige que a base de cálculo seja ajustada. 
+                    A lógica é que o preço final da mercadoria deve conter o ICMS interno do destino. Por isso, aplicamos uma fórmula matemática para "inflar" a base original antes de calcular a diferença entre as alíquotas.
+                </p>
+            </div>
+        </div>
+
+        <div class="formula-box">
+            <h3>A Fórmula da Base Dupla</h3>
+            <p>Para chegar ao valor que você vê na calculadora, utilizamos a seguinte estrutura:</p>
+            <div class="formula">
+                $$Base = \frac{V_{operacao} - ICMS_{origem}}{1 - Alíq_{interna}}$$
+            </div>
+            <p><small>* Onde o ICMS de origem é o valor do produto multiplicado pela alíquota interestadual (4%, 7% ou 12%).</small></p>
+        </div>
+
+        <h3>Quando usar a Base Dupla?</h3>
+        <p>
+            A aplicação da base dupla varia conforme o estado (UF) de destino e a categoria do comprador (se é contribuinte do ICMS ou não). 
+            Estados como <b>Minas Gerais (MG)</b> e <b>Rio Grande do Sul (RS)</b> são conhecidos por serem rigorosos na exigência desse formato de cálculo para equilibrar a arrecadação interna.
+        </p>
+    </div>
+</section>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-grid">
+            <div class="footer-col centralizado">
+                <h3 class="logo-footer">Calculadora ICMS</h3>
+                <p>Ferramenta gratuita desenvolvida para simplificar o cálculo do diferencial de alíquota em operações interestaduais.</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Calculadora DIFAL ICMS. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
