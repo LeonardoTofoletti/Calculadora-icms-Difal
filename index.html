@@ -7,19 +7,44 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="dark">
-
 <header class="menu">
     <div class="menu-container">
+
         <h2 class="logo">Calculadora ICMS</h2>
-        <nav>
+
+        <!-- MENU DESKTOP -->
+        <nav class="menu-links">
             <a href="#calculadora">Calculadora</a>
-            <a href="#info">Sobre DIFAL</a>
-            <a href="#tabela">Tabela ICMS</a>
-            <a href="#basedupla">Explicação base dupla ICMS difal</a>
+            <a href="#info">Sobre</a>
+            <a href="#tabela">Tabela</a>
+            <a href="#basedupla">Base dupla</a>
+            <button id="toggleTema" class="botaoTema">☀️</button>
         </nav>
-        <button id="toggleTema" class="botaoTema">☀️</button>
+
+        <!-- BOTÃO MOBILE -->
+        <button id="menuToggle" class="menu-toggle">☰</button>
+
     </div>
 </header>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay"></div>
+
+<!-- MENU MOBILE -->
+<nav id="menuNav" class="side-menu">
+    <button id="closeMenu" class="fechar-menu">✕</button>
+
+    <a href="#calculadora">Calculadora</a>
+    <a href="#info">Sobre DIFAL</a>
+    <a href="#tabela">Tabela ICMS</a>
+    <a href="#basedupla">Base dupla ICMS</a>
+
+    <div class="divider"></div>
+
+    <button id="toggleTemaMobile" class="menu-item">
+        ☀️ Alternar tema
+    </button>
+</nav>
 
 <section id="calculadora" class="secao-principal">
     <div class="layout">
@@ -241,7 +266,10 @@
         </div>
     </div>
 </footer>
-
+<div id="modalImagem" class="modal-imagem">
+    <span class="fechar-modal">&times;</span>
+    <img id="imgExpandida" class="conteudo-modal">
+</div>
 <script src="script.js"></script>
 </body>
 </html>

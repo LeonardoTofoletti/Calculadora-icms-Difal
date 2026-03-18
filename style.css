@@ -6,6 +6,7 @@ body {
     background: #f1f5f9;
     color: #1e293b;
     overflow-x: hidden;
+    padding-top: 70px;
 }
 
 * {
@@ -42,13 +43,14 @@ body {
 
 /* --- MENU --- */
 .menu { 
-    overflow: hidden;
+    position: fixed; /* Faz o menu ficar parado no topo */
+    top: 0;
+    left: 0;
+    width: 100%;
     background: #1e293b; 
     padding: 15px 0; 
-    width: 100%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    position: relative;
-    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Sombra para dar profundidade */
+    z-index: 1000; /* Garante que ele fique acima de tudo */
 }
 .menu-container {
     max-width: 1100px;
@@ -92,7 +94,7 @@ body {
     display: flex;
     gap: 30px;
     width: 100%;
-    max-width: 1000px;
+    max-width: 900px;
     width: 100%; 
     margin: 0 auto; 
     padding: 60px 20px;
@@ -100,7 +102,10 @@ body {
     justify-content: center; 
 }
 .coluna-calculadora { flex: 1.3; min-width: 320px; width: 100%; }
-.coluna-texto { flex: 0.7; min-width: 300px; }
+.coluna-texto {
+    flex: 0.7;
+    min-width: 300px;
+}
 .coluna-texto p { line-height: 1.7; color: #475569; }
 
 /* --- CARD E SOMBRAS --- */
@@ -111,6 +116,7 @@ body {
     box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 5px 15px rgba(0,0,0,0.04);
     border: 1px solid rgba(255,255,255,0.8);
     width: 100%;
+    margin-bottom: 20px;
     box-sizing: border-box; /* Garante padding correto */
 }
 
@@ -205,8 +211,14 @@ input:focus, select:focus {
     height: 20px;
     accent-color: #4c7be8;
 }
-.label-text { font-size: 14px; color: #ffffff; user-select: none; }
-
+.label-text { 
+    font-size: 14px; 
+    color: #1e293b; /* cor padrão (modo claro) */
+    user-select: none; 
+}
+body.dark .label-text {
+    color: #f1f5f9;
+}
 /* BOTÃO CALCULAR */
 .botaoCalcular {
     width: 100%;
@@ -217,6 +229,7 @@ input:focus, select:focus {
     border-radius: 12px;
     cursor: pointer;
     margin-top: 25px;
+    margin-bottom: 10px;
     font-weight: 700;
     font-size: 16px;
     transition: 0.3s;
@@ -527,5 +540,278 @@ body.dark .formula {
 @media (max-width: 768px) {
     .grid-explicao {
         grid-template-columns: 1fr;
+    }
+}
+/* MODAL IMAGEM (ZOOM) */
+.modal-imagem {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding: 20px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+}
+
+.conteudo-modal {
+    max-width: 95%;
+    max-height: 90%;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+    transform-origin: center center;
+    cursor: zoom-in;
+    touch-action: none; /* importante pro mobile */
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.fechar-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* cursor de clique na imagem */
+.imagemTabela {
+    cursor: zoom-in;
+}
+/* BOTÃO HAMBURGUER */
+.menu-toggle {
+    display: block;
+    font-size: 22px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+    z-index: 1050;
+}
+
+.overlay.ativo {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* MENU LATERAL */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background: #1e293b;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1100;
+}
+
+
+.side-menu.ativo {
+    left: 0;
+}
+.side-menu.ativo ~ #menuSensor {
+    pointer-events: none;
+}
+/* --- ESTILIZAÇÃO DO CONTEÚDO DO MENU LATERAL --- */
+.side-menu a {
+    color: #cbd5e1; /* Cor cinza clara */
+    text-decoration: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    display: block;
+}
+
+.side-menu a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    padding-left: 20px; /* Efeito de deslize no hover */
+}
+
+.divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 15px 0;
+}
+
+/* Estilo do botão de alternar tema dentro do menu */
+.menu-item {
+    background: #334155;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 15px;
+    font-family: inherit;
+    transition: background 0.2s;
+}
+
+.menu-item:hover {
+    background: #475569;
+}
+
+/* Ajuste para o botão hambúrguer não sumir no topo */
+.menu-toggle {
+    transition: transform 0.2s;
+}
+.menu-toggle:active {
+    transform: scale(0.9);
+}
+/* --- BOTÃO DE FECHAR NO MENU --- */
+.fechar-menu {
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    font-size: 24px;
+    cursor: pointer;
+    align-self: flex-end; /* Joga a seta para a direita */
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: transform 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fechar-menu:hover {
+    color: #ffffff;
+    transform: translateX(5px); /* Pequeno movimento para a direita */
+}
+
+/* Garante que o menu lateral use flexbox para alinhar a seta */
+.side-menu {
+    display: flex;
+    flex-direction: column;
+}
+.menu-sensor {
+    position: fixed;
+    top: 0;
+    width: 80px;
+    height: 100vh;
+    z-index: 1200;
+    background: transparent;
+}
+.side-menu {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Ajuste para o menu lateral ser fluido */
+.side-menu {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), left 0.3s ease;
+    z-index: 1100; /* Acima do sensor e do header fixo */
+}
+
+/* Opcional: destaque visual quando o menu está aberto */
+.side-menu.ativo {
+    box-shadow: 5px 0 25px rgba(0,0,0,0.5);
+}
+/* Sensor posicionado sobre o ícone */
+.sensor-inteligente {
+    position: absolute;
+    left: 10px; /* Alinhado ao início do container */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80px;  /* Área de detecção lateral */
+    height: 60px; /* Área de detecção vertical */
+    background: transparent; /* Invisível */
+    z-index: 101; /* Acima do botão para detectar o mouse antes */
+    cursor: pointer;
+}
+
+/* Ajuste para o container do menu permitir o posicionamento absoluto do sensor */
+.menu-container {
+    position: relative;
+}
+/* Faixa de ativação vertical alinhada ao ícone */
+.sensor-vertical {
+    position: fixed;
+    top: 0;
+    /* Ajuste este valor para alinhar exatamente com o seu ícone */
+    left: 15px; 
+    width: 40px; /* Largura da "zona de detecção" */
+    height: 100vh;
+    background: transparent; /* Mude para rgba(255,0,0,0.1) se quiser ver onde ela está para testar */
+    z-index: 1050;
+}
+
+/* Garante que o menu lateral tenha prioridade de clique quando aberto */
+.side-menu.ativo {
+    z-index: 1100;
+}
+.menu-texto {
+    font-size: 18px;
+    color: #cbd5e1;
+}
+/* MENU DESKTOP */
+.menu-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.menu-links a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.menu-links a:hover {
+    color: #3b82f6;
+}
+
+/* BOTÃO MOBILE ESCONDIDO NO DESKTOP */
+.menu-toggle {
+    display: none;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .menu-links {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+        font-size: 24px;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
     }
 }

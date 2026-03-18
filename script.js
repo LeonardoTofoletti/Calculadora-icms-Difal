@@ -1,3 +1,4 @@
+// ================= ESTADOS =================
 const aliquotasInternas = {
 AC:19, AL:20, AM:20, AP:18, BA:20.5, CE:20, DF:20, ES:17,
 GO:19, MA:23, MT:17, MS:17, MG:18, PA:19, PB:20, PR:19.5,
@@ -13,180 +14,203 @@ const inputValor = document.getElementById("valor");
 
 // preencher estados
 for(let uf in aliquotasInternas){
+    let op1 = document.createElement("option");
+    op1.value = uf;
+    op1.textContent = uf;
+    origem.appendChild(op1);
 
-let op1 = document.createElement("option");
-op1.value = uf;
-op1.textContent = uf;
-origem.appendChild(op1);
-
-let op2 = document.createElement("option");
-op2.value = uf;
-op2.textContent = uf;
-destino.appendChild(op2);
-
+    let op2 = document.createElement("option");
+    op2.value = uf;
+    op2.textContent = uf;
+    destino.appendChild(op2);
 }
 
-// máscara de valor
+// máscara valor
 inputValor.addEventListener('input', (e) => {
-
-let value = e.target.value.replace(/\D/g, "");
-value = (value / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
-e.target.value = value === "0,00" ? "" : value;
-
+    let value = e.target.value.replace(/\D/g, "");
+    value = (value / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+    e.target.value = value === "0,00" ? "" : value;
 });
 
+// ================= CALCULO =================
 function calcular(){
+    let valorStr = inputValor.value;
+    let valor = parseFloat(valorStr.replace(/\./g, '').replace(',', '.'));
 
-let valorStr = inputValor.value;
-let valor = parseFloat(valorStr.replace(/\./g, '').replace(',', '.'));
-
-if(isNaN(valor) || !origem.value || !destino.value){
-alert("Preencha o valor e os estados.");
-return;
-}
-
-let ufOrigem = origem.value;
-let ufDestino = destino.value;
-
-let ehImportado = document.getElementById("importado").checked;
-let ativarFCP = document.getElementById("ativarFCP").checked;
-let baseDupla = document.getElementById("baseDupla")?.checked;
-
-let fcpPercentual = parseFloat(document.getElementById("fcp_select").value);
-
-let aliqInterna = aliquotasInternas[ufDestino];
-
-// ================= ALÍQUOTA INTERESTADUAL =================
-let interestadual = 12;
-
-if (ehImportado) {
-interestadual = 4;
-}
-else if (estadosSulSudeste.includes(ufOrigem) && !estadosSulSudeste.includes(ufDestino)) {
-interestadual = 7;
-}
-
-// ================= FORMATADOR =================
-const fmt = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
-// ================= VARIÁVEIS =================
-let valorInterno = 0;
-let valorInterestadual = (valor * interestadual) / 100;
-let valorDifal = 0;
-let difal = 0;
-let valorFCP = 0;
-let baseDestino = valor; // padrão
-
-// ================= BASE DUPLA OU NORMAL =================
-if(baseDupla){
-
-    // 🔥 BASE DUPLA CORRETA (NF-e)
-    baseDestino = valor * (1 - (interestadual / 100)) / (1 - (aliqInterna / 100));
-
-    valorInterno = baseDestino * (aliqInterna / 100);
-    valorDifal = valorInterno - valorInterestadual;
-
-    difal = (valorDifal / valor) * 100;
-
-    let linhaBaseDupla = document.querySelector(".base-dupla");
-    if(linhaBaseDupla){
-        linhaBaseDupla.style.display = "flex";
-        document.getElementById("resBaseDupla").textContent = fmt(baseDestino);
+    if(isNaN(valor) || !origem.value || !destino.value){
+        return;
     }
 
-}else{
+    let ufOrigem = origem.value;
+    let ufDestino = destino.value;
 
-    // ✅ BASE SIMPLES
-    difal = aliqInterna - interestadual;
+    let ehImportado = document.getElementById("importado").checked;
+    let ativarFCP = document.getElementById("ativarFCP").checked;
+    let baseDupla = document.getElementById("baseDupla")?.checked;
 
-    valorInterno = (valor * aliqInterna) / 100;
-    valorDifal = (valor * difal) / 100;
+    let fcpPercentual = ativarFCP
+        ? parseFloat(document.getElementById("fcp_select").value)
+        : 0;
 
-    let linhaBaseDupla = document.querySelector(".base-dupla");
-    if(linhaBaseDupla){
-        linhaBaseDupla.style.display = "none";
+    let aliqInterna = aliquotasInternas[ufDestino];
+
+    let interestadual = 12;
+
+    if (ehImportado) interestadual = 4;
+    else if (estadosSulSudeste.includes(ufOrigem) && !estadosSulSudeste.includes(ufDestino)) {
+        interestadual = 7;
     }
-}
 
-// ================= FCP =================
-if(ativarFCP){
+    const fmt = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+    let valorInterno = 0;
+    let valorInterestadual = (valor * interestadual) / 100;
+    let valorDifal = 0;
+    let difal = 0;
+    let valorFCP = 0;
+    let baseDestino = valor;
 
     if(baseDupla){
-        valorFCP = baseDestino * (fcpPercentual / 100);
+        baseDestino = valor * (1 - (interestadual / 100)) / (1 - (aliqInterna / 100));
+        valorInterno = baseDestino * (aliqInterna / 100);
+        valorDifal = valorInterno - valorInterestadual;
+        difal = (valorDifal / valor) * 100;
+
+        document.querySelector(".base-dupla").style.display = "flex";
+        document.getElementById("resBaseDupla").textContent = fmt(baseDestino);
     }else{
-        valorFCP = valor * (fcpPercentual / 100);
+        difal = aliqInterna - interestadual;
+        valorInterno = (valor * aliqInterna) / 100;
+        valorDifal = (valor * difal) / 100;
+
+        document.querySelector(".base-dupla").style.display = "none";
     }
 
+    if(ativarFCP){
+        valorFCP = baseDupla
+            ? baseDestino * (fcpPercentual / 100)
+            : valor * (fcpPercentual / 100);
+    }
+
+    let totalDestino = valorDifal + valorFCP;
+
+    document.getElementById("resBase").textContent = fmt(valor);
+    document.getElementById("resAliqInterna").textContent = aliqInterna + "%";
+    document.getElementById("resValorInterno").textContent = fmt(valorInterno);
+    document.getElementById("resAliqInterestadual").textContent = interestadual + "%";
+    document.getElementById("resValorInterestadual").textContent = fmt(valorInterestadual);
+    document.getElementById("resDifal").textContent = difal.toFixed(2) + "%";
+    document.getElementById("resValorDifal").textContent = fmt(valorDifal);
+
+    if(ativarFCP){
+        document.querySelectorAll(".fcp-linha").forEach(el => el.style.display = "flex");
+        document.getElementById("resAliqFCP").textContent = fcpPercentual + "%";
+        document.getElementById("resValorFCP").textContent = fmt(valorFCP);
+
+        document.querySelectorAll(".total-destino").forEach(el => el.style.display = "flex");
+        document.getElementById("resTotalDestino").textContent = fmt(totalDestino);
+    }else{
+        document.querySelectorAll(".fcp-linha, .total-destino").forEach(el => el.style.display = "none");
+    }
 }
 
-// ================= TOTAL DESTINO =================
-let totalDestino = valorDifal + valorFCP;
+// ================= AUTO UPDATE =================
+inputValor.addEventListener("input", calcular);
+origem.addEventListener("change", calcular);
+destino.addEventListener("change", calcular);
 
-// ================= EXIBIÇÃO =================
-document.getElementById("resBase").textContent = fmt(valor);
+document.getElementById("importado").addEventListener("change", calcular);
+document.getElementById("baseDupla").addEventListener("change", calcular);
 
-document.getElementById("resAliqInterna").textContent = aliqInterna + "%";
-document.getElementById("resValorInterno").textContent = fmt(valorInterno);
+const checkFCP = document.getElementById("ativarFCP");
+const selectFCP = document.getElementById("fcp_select");
 
-document.getElementById("resAliqInterestadual").textContent = interestadual + "%";
-document.getElementById("resValorInterestadual").textContent = fmt(valorInterestadual);
-
-document.getElementById("resDifal").textContent = difal.toFixed(2) + "%";
-document.getElementById("resValorDifal").textContent = fmt(valorDifal);
-
-// ================= FCP + TOTAL =================
-if(ativarFCP){
-
-document.querySelectorAll(".fcp-linha").forEach(el => {
-el.style.display = "flex";
+checkFCP.addEventListener("change", () => {
+    selectFCP.style.display = checkFCP.checked ? "inline-block" : "none";
+    calcular();
 });
 
-document.getElementById("resAliqFCP").textContent = fcpPercentual + "%";
-document.getElementById("resValorFCP").textContent = fmt(valorFCP);
+selectFCP.addEventListener("change", calcular);
 
-document.querySelectorAll(".total-destino").forEach(el => {
-el.style.display = "flex";
-});
-
-document.getElementById("resTotalDestino").textContent = fmt(totalDestino);
-
-}else{
-
-document.querySelectorAll(".fcp-linha").forEach(el => {
-el.style.display = "none";
-});
-
-document.querySelectorAll(".total-destino").forEach(el => {
-el.style.display = "none";
-});
-
-}
-
-}
-
-// ================= DARK MODE =================
+// ================= TEMA =================
 const botaoTema = document.getElementById("toggleTema");
+const botaoTemaMobile = document.getElementById("toggleTemaMobile");
 
-botaoTema.addEventListener("click", () => {
+function alternarTema() {
+    document.body.classList.toggle("dark");
 
-document.body.classList.toggle("dark");
+    const escuro = document.body.classList.contains("dark");
 
-botaoTema.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+    if (botaoTema)
+        botaoTema.innerHTML = escuro ? "☀️" : "🌙";
 
+    if (botaoTemaMobile)
+        botaoTemaMobile.innerHTML = escuro ? "☀️ Alternar tema" : "🌙 Alternar tema";
+}
+
+if (botaoTema) botaoTema.addEventListener("click", alternarTema);
+if (botaoTemaMobile) botaoTemaMobile.addEventListener("click", alternarTema);
+
+// ================= MENU MOBILE =================
+const menuNav = document.getElementById("menuNav");
+const overlay = document.getElementById("overlay");
+const menuToggle = document.getElementById("menuToggle");
+const closeMenu = document.getElementById("closeMenu");
+
+function abrirMenu() {
+    menuNav.classList.add("ativo");
+    overlay.classList.add("ativo");
+}
+
+function fecharMenu() {
+    menuNav.classList.remove("ativo");
+    overlay.classList.remove("ativo");
+}
+
+menuToggle.addEventListener("click", abrirMenu);
+closeMenu.addEventListener("click", fecharMenu);
+overlay.addEventListener("click", fecharMenu);
+
+document.querySelectorAll(".side-menu a").forEach(link => {
+    link.addEventListener("click", fecharMenu);
 });
 
-// ================= TOGGLE FCP =================
-function toggleFCP(){
+// ================= MODAL ZOOM =================
+const modal = document.getElementById("modalImagem");
+const img = document.querySelector(".imagemTabela");
+const imgExpandida = document.getElementById("imgExpandida");
+const fechar = document.querySelector(".fechar-modal");
 
-const check = document.getElementById("ativarFCP");
-const select = document.getElementById("fcp_select");
+let scale = 1;
 
-if(check.checked){
-    select.style.display = "inline-block";
-}else{
-    select.style.display = "none";
+function aplicarZoom() {
+    imgExpandida.style.transform = `scale(${scale})`;
 }
 
-calcular();
+img.addEventListener("click", () => {
+    modal.style.display = "flex";
+    imgExpandida.src = img.src;
+    scale = 1;
+    aplicarZoom();
+});
 
-}
+fechar.addEventListener("click", () => modal.style.display = "none");
+
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.style.display = "none";
+});
+
+imgExpandida.addEventListener("wheel", (e) => {
+    e.preventDefault();
+
+    const rect = imgExpandida.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+
+    imgExpandida.style.transformOrigin = `${x*100}% ${y*100}%`;
+
+    scale += e.deltaY < 0 ? 0.2 : -0.2;
+    scale = Math.min(Math.max(1, scale), 5);
+
+    aplicarZoom();
+}, { passive: false });
