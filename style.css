@@ -830,3 +830,47 @@ body.dark .formula {
 body.dark .aviso-footer p {
     color: #94a3b8;
 }
+.secao-seo {
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    background: #ffffff;
+}
+
+body.dark .secao-seo {
+    background: #020617;
+}
+
+.secao-seo .container-texto {
+    max-width: 900px;
+    line-height: 1.7;
+}
+
+.secao-seo h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+}
+
+.secao-seo h3 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.secao-seo p {
+    color: #475569;
+    margin-bottom: 10px;
+}
+
+body.dark .secao-seo p {
+    color: #94a3b8;
+}
+
+.secao-seo ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.secao-seo li {
+    margin-bottom: 5px;
+}
