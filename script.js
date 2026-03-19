@@ -37,7 +37,7 @@ function calcular(){
     let valorStr = inputValor.value;
     let valor = parseFloat(valorStr.replace(/\./g, '').replace(',', '.'));
 
-    if(isNaN(valor) || !origem.value || !destino.value){
+    if(!origem.value || !destino.value){
         return;
     }
 
@@ -59,6 +59,24 @@ function calcular(){
     if (ehImportado) interestadual = 4;
     else if (estadosSulSudeste.includes(ufOrigem) && !estadosSulSudeste.includes(ufDestino)) {
         interestadual = 7;
+    }
+
+    // ✅ MOSTRA PORCENTAGENS SEM VALOR
+    document.getElementById("resAliqInterna").textContent = aliqInterna + "%";
+    document.getElementById("resAliqInterestadual").textContent = interestadual + "%";
+    document.getElementById("resDifal").textContent = (aliqInterna - interestadual).toFixed(2) + "%";
+
+    // 🔥 SE NÃO TEM VALOR, PARA AQUI
+    if(isNaN(valor)){
+        document.getElementById("resBase").textContent = "R$ 0,00";
+        document.getElementById("resValorInterno").textContent = "R$ 0,00";
+        document.getElementById("resValorInterestadual").textContent = "R$ 0,00";
+        document.getElementById("resValorDifal").textContent = "R$ 0,00";
+
+        document.querySelector(".base-dupla").style.display = "none";
+        document.querySelectorAll(".fcp-linha, .total-destino").forEach(el => el.style.display = "none");
+
+        return;
     }
 
     const fmt = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -95,9 +113,7 @@ function calcular(){
     let totalDestino = valorDifal + valorFCP;
 
     document.getElementById("resBase").textContent = fmt(valor);
-    document.getElementById("resAliqInterna").textContent = aliqInterna + "%";
     document.getElementById("resValorInterno").textContent = fmt(valorInterno);
-    document.getElementById("resAliqInterestadual").textContent = interestadual + "%";
     document.getElementById("resValorInterestadual").textContent = fmt(valorInterestadual);
     document.getElementById("resDifal").textContent = difal.toFixed(2) + "%";
     document.getElementById("resValorDifal").textContent = fmt(valorDifal);
@@ -131,86 +147,3 @@ checkFCP.addEventListener("change", () => {
 });
 
 selectFCP.addEventListener("change", calcular);
-
-// ================= TEMA =================
-const botaoTema = document.getElementById("toggleTema");
-const botaoTemaMobile = document.getElementById("toggleTemaMobile");
-
-function alternarTema() {
-    document.body.classList.toggle("dark");
-
-    const escuro = document.body.classList.contains("dark");
-
-    if (botaoTema)
-        botaoTema.innerHTML = escuro ? "☀️" : "🌙";
-
-    if (botaoTemaMobile)
-        botaoTemaMobile.innerHTML = escuro ? "☀️ Alternar tema" : "🌙 Alternar tema";
-}
-
-if (botaoTema) botaoTema.addEventListener("click", alternarTema);
-if (botaoTemaMobile) botaoTemaMobile.addEventListener("click", alternarTema);
-
-// ================= MENU MOBILE =================
-const menuNav = document.getElementById("menuNav");
-const overlay = document.getElementById("overlay");
-const menuToggle = document.getElementById("menuToggle");
-const closeMenu = document.getElementById("closeMenu");
-
-function abrirMenu() {
-    menuNav.classList.add("ativo");
-    overlay.classList.add("ativo");
-}
-
-function fecharMenu() {
-    menuNav.classList.remove("ativo");
-    overlay.classList.remove("ativo");
-}
-
-menuToggle.addEventListener("click", abrirMenu);
-closeMenu.addEventListener("click", fecharMenu);
-overlay.addEventListener("click", fecharMenu);
-
-document.querySelectorAll(".side-menu a").forEach(link => {
-    link.addEventListener("click", fecharMenu);
-});
-
-// ================= MODAL ZOOM =================
-const modal = document.getElementById("modalImagem");
-const img = document.querySelector(".imagemTabela");
-const imgExpandida = document.getElementById("imgExpandida");
-const fechar = document.querySelector(".fechar-modal");
-
-let scale = 1;
-
-function aplicarZoom() {
-    imgExpandida.style.transform = `scale(${scale})`;
-}
-
-img.addEventListener("click", () => {
-    modal.style.display = "flex";
-    imgExpandida.src = img.src;
-    scale = 1;
-    aplicarZoom();
-});
-
-fechar.addEventListener("click", () => modal.style.display = "none");
-
-modal.addEventListener("click", (e) => {
-    if (e.target === modal) modal.style.display = "none";
-});
-
-imgExpandida.addEventListener("wheel", (e) => {
-    e.preventDefault();
-
-    const rect = imgExpandida.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-
-    imgExpandida.style.transformOrigin = `${x*100}% ${y*100}%`;
-
-    scale += e.deltaY < 0 ? 0.2 : -0.2;
-    scale = Math.min(Math.max(1, scale), 5);
-
-    aplicarZoom();
-}, { passive: false });
