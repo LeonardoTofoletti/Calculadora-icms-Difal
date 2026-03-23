@@ -271,7 +271,13 @@ body.dark .label-text {
 }
 
 /* FOOTER */
-.footer { text-align: center; padding: 60px; background: #1e293b; color: #94a3b8; width: 100%; }
+.footer { 
+    text-align: center; 
+    padding: 50px; 
+    background: #1e293b; 
+    color: #94a3b8; 
+    width: 100%; 
+}
 
 /* --- DARK MODE --- */
 body.dark { background: #0f172a; color: #f1f5f9; }
@@ -873,4 +879,7 @@ body.dark .secao-seo p {
 
 .secao-seo li {
     margin-bottom: 5px;
+}
+.politica-privacidade {
+    margin-top: 10px;
 }
