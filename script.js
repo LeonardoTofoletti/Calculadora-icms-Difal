@@ -229,3 +229,14 @@ imgExpandida.addEventListener("wheel", (e) => {
 
     aplicarZoom();
 }, { passive: false });
+const menu = document.querySelector(".menu");
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 20) {
+        menu.classList.add("scroll");
+        menu.classList.remove("topo");
+    } else {
+        menu.classList.add("topo");
+        menu.classList.remove("scroll");
+    }
+});
