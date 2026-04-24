@@ -240,3 +240,62 @@ window.addEventListener("scroll", () => {
         menu.classList.remove("scroll");
     }
 });
+function abrirSugestao(){
+document.getElementById("modalSugestao").style.display="flex"
+}
+
+function fecharSugestao(){
+document.getElementById("modalSugestao").style.display="none"
+}
+
+function enviarSugestao(){
+
+let titulo =
+document.getElementById("sugestaoTitulo").value
+
+let texto =
+document.getElementById("sugestaoTexto").value
+
+let assunto =
+encodeURIComponent("Sugestão: "+titulo)
+
+let corpo =
+encodeURIComponent(texto)
+
+window.location.href =
+"mailto:leotr2016.jb@gmail.com?subject="+assunto+"&body="+corpo
+
+}
+function abrirSugestao(){
+document.getElementById("modalSugestao").style.display="flex"
+}
+
+function fecharSugestao(){
+document.getElementById("modalSugestao").style.display="none"
+}
+function enviarSugestao(){
+
+const form = document.getElementById("formSugestao")
+
+fetch("https://formsubmit.co/ajax/leotr2016.jb@gmail.com",{
+method:"POST",
+body:new FormData(form)
+})
+.then(response => response.json())
+.then(data => {
+
+document.getElementById("msgSucesso").style.display = "block"
+
+form.reset()
+
+setTimeout(()=>{
+document.getElementById("msgSucesso").style.display = "none"
+fecharSugestao()
+},2000)
+
+})
+.catch(error => {
+alert("Erro ao enviar sugestão")
+})
+
+}

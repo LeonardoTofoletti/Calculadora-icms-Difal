@@ -25,7 +25,6 @@ body {
         transform: translateY(0);
     }
 }
-
 @keyframes pulse {
     0% { box-shadow: 0 0 0 0 rgba(76, 123, 232, 0.6); }
     70% { box-shadow: 0 0 0 12px rgba(76, 123, 232, 0); }
@@ -892,4 +891,315 @@ body.dark .secao-seo p {
 }
 .politica-privacidade {
     margin-top: 10px;
+}
+.secao-outras {
+    padding: 80px 20px;
+    background: #f8fafc;
+    display: flex;
+    justify-content: center;
+}
+
+body.dark .secao-outras {
+    background: #0f172a;
+}
+
+.container-outras {
+    max-width: 950px;
+    width: 100%;
+    text-align: center;
+}
+
+.container-outras h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.container-outras p {
+    color: #64748b;
+}
+
+/* GRID MELHORADO */
+.grid-calculadoras {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 35px;
+
+    max-width: 1000px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 0 20px;
+    align-items: stretch;
+}
+
+/* CARD MAIS “APP” */
+.card-link {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 24px;
+    border-radius: 20px;
+
+    background: white;
+    text-decoration: none;
+    color: #0f172a;
+
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    border: 1px solid rgba(148,163,184,0.2);
+
+    transition: all 0.25s ease;
+    min-height: 170px;
+}
+
+.card-link:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+    border-color: #3b82f6;
+}
+
+
+/* TAG pequena topo */
+.tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+
+    color: #3b82f6;
+    background: rgba(59,130,246,0.1);
+
+    padding: 4px 10px;
+    border-radius: 999px;
+
+    width: fit-content;
+    margin-bottom: 12px;
+}
+
+/* título */
+.card-link h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.card-link p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.5;
+}
+/* CTA estilo botão leve */
+.cta {
+    margin-top: 18px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #3b82f6;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+/* DARK MODE */
+body.dark .card-link {
+    background: #1e293b;
+    color: #f1f5f9;
+    border-color: rgba(148,163,184,0.15);
+}
+
+body.dark .card-link p {
+    color: #94a3b8;
+}
+
+body.dark .card-link:hover {
+    box-shadow: 0 25px 70px rgba(0,0,0,0.6);
+}
+
+@media (max-width: 900px) {
+    .grid-calculadoras {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .grid-calculadoras {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 0 16px;
+    }
+
+    .card-link {
+        padding: 20px;
+        border-radius: 16px;
+        min-height: auto;
+    }
+}
+/* BOTÃO FLUTUANTE */
+.btn-sugestao{
+position:fixed;
+right:20px;
+bottom:20px;
+display:flex;
+align-items:center;
+gap:8px;
+padding:12px 14px;
+border-radius:14px;
+background:linear-gradient(135deg,#3b82f6,#2563eb);
+color:white;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+box-shadow:
+0 10px 25px rgba(0,0,0,0.15),
+0 5px 10px rgba(59,130,246,0.2);
+z-index:999;
+transition:all .25s ease;
+}
+
+/* hover */
+.btn-sugestao:hover{
+transform:translateY(-4px);
+box-shadow:
+0 20px 40px rgba(0,0,0,0.2),
+0 10px 20px rgba(59,130,246,0.25);
+}
+
+.btn-sugestao:active{
+transform:translateY(-1px);
+}
+/* efeito glow */
+.btn-sugestao::after{
+content:"";
+position:absolute;
+inset:0;
+border-radius:14px;
+background:linear-gradient(135deg,#3b82f6,#2563eb);
+opacity:.15;
+filter:blur(10px);
+z-index:-1;
+}
+
+/* MODAL */
+.modal-sugestao{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+
+/* BOX */
+.box-sugestao{
+background:white;
+width:90%;
+max-width:420px;
+border-radius:16px;
+padding:20px;
+}
+
+/* HEADER */
+.topo-sugestao{
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+font-weight:600;
+}
+
+.topo-sugestao button{
+background:none;
+border:none;
+font-size:18px;
+cursor:pointer;
+}
+
+/* TEXTAREA */
+.box-sugestao textarea{
+width:100%;
+height:120px;
+margin-top:10px;
+border-radius:12px;
+border:1px solid #e2e8f0;
+padding:12px;
+resize:none;
+font-family:inherit;
+background:#f8fafc;
+transition:0.3s;
+}
+
+/* MESMA ANIMAÇÃO DO INPUT */
+.box-sugestao textarea:focus{
+outline:none;
+border-color:#3b82f6;
+background:white;
+box-shadow:0 0 0 4px rgba(59,130,246,0.1);
+}
+/* BOTÃO */
+.btn-enviar-sugestao{
+width:100%;
+margin-top:10px;
+background:#3b82f6;
+color:white;
+border:none;
+padding:12px;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* DARK MODE */
+body.dark .box-sugestao{
+background:#1e293b;
+color:white;
+}
+
+body.dark textarea,
+body.dark input{
+background:#0f172a;
+color:white;
+border-color:#334155;
+}
+body.dark .box-sugestao textarea{
+background:#0f172a;
+color:white;
+border-color:#334155;
+}
+
+body.dark .box-sugestao textarea:focus{
+border-color:#3b82f6;
+box-shadow:0 0 0 4px rgba(59,130,246,0.15);
+}
+.msg-sucesso{
+display:none;
+margin-top:10px;
+background:#22c55e;
+color:white;
+padding:10px;
+border-radius:10px;
+font-size:14px;
+text-align:center;
+animation:fadeInUp .3s ease;
+}
+body.dark .msg-sucesso{
+background:#16a34a;
+}
+.container-outras {
+    max-width: 1000px;
+    margin: 0 auto;
+
+}
+
+.titulo-calculadoras {
+    text-align: center;
+    margin-bottom: 35px;
+}
+.grid-calculadoras {
+    text-align: left;
 }

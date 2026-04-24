@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="shortcut icon" href="/favicon.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
     <link rel="stylesheet" href="style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2922037030125492"
      crossorigin="anonymous">
     </script>
+    <link rel="canonical" href="https://calculadora-icms-difal.vercel.app/">
+    <meta property="og:image" content="URL_DA_IMAGEM">
     <meta name="google-adsense-account" content="ca-pub-2922037030125492">
     <meta name="description" content="Calcule o DIFAL ICMS online grátis em segundos. Ferramenta atualizada com base dupla, FCP e alíquotas interestaduais. Simples, rápido e confiável.">
     <meta name="keywords" content="ICMS DIFAL, calculadora DIFAL, diferencial de alíquota, ICMS interestadual">
@@ -42,7 +42,7 @@
         <!-- MENU DESKTOP -->
         <nav class="menu-links">
             <a href="#calculadora">Calculadora</a>
-            <a href="#info">Sobre</a>
+            <a href="#info">+ Calculadoras</a>
             <a href="#tabela">Tabela</a>
             <a href="#basedupla">Base dupla</a>
             <a href="como-calcular-difal.html">Como calcular</a>
@@ -63,7 +63,7 @@
     <button id="closeMenu" class="fechar-menu">✕</button>
 
     <a href="#calculadora">Calculadora</a>
-    <a href="#info">Sobre DIFAL</a>
+    <a href="#info">+ Calculadoras</a>
     <a href="#tabela">Tabela ICMS</a>
     <a href="#basedupla">Base dupla ICMS</a>
     <a href="como-calcular-difal.html">Como calcular</a>
@@ -212,7 +212,7 @@
             </div>
         </div>
 
-        <div id="info" class="coluna-texto animar-entrada-atraso">
+        <div  class="coluna-texto animar-entrada-atraso">
             <h2>O que é DIFAL?</h2>
             <p>O DIFAL (Diferencial de Alíquota do ICMS) é um imposto aplicado quando uma mercadoria é vendida de um estado para outro.</p>
 
@@ -313,7 +313,43 @@
 
     </div>
 </section>
+<section id="info" class="secao-outras">
 
+<div class="container-outras">
+
+    <div class="titulo-calculadoras">
+        <h2>Calculadoras e Ferramentas</h2>
+        <p class="subtitulo-calculadoras">
+            Explore outras calculadoras úteis e novas ferramentas.
+        </p>    
+    </div>
+    <div class="grid-calculadoras">
+
+        <a href="https://calculadora-financeira-sigma.vercel.app/" class="card-link">
+            <span class="tag">Investimentos</span>
+            <h3>Juros Compostos</h3>
+            <p>Simule o crescimento do seu dinheiro ao longo do tempo.</p>
+            <span class="cta">Abrir calculadora → CLICA AQUI</span>
+        </a>
+
+        <a href="#" class="card-link">
+            <span class="tag">HORAS - EM BREVE</span>
+            <h3>Calculo de Horas</h3>
+            <p>Calcule suas horas para não se atrasar</p>
+            <span class="cta">Abrir calculadora → CLICA AQUI</span>
+        </a>
+
+        <a href="#" class="card-link">
+            <span class="tag">EM ANALISE</span>
+            <h3>ESTUDO</h3>
+            <p>Estudando novas funcionalidade e calculadora caso queira dar uma sujestão</p>
+            <span class="cta">icone no canto inferior direito para sujestão</span>
+        </a>
+
+
+    </div>
+</div>    
+</section>
 <footer class="footer">
     <div class="footer-container">
         <div class="footer-grid">
@@ -335,7 +371,8 @@
 
         <div class="politica-privacidade">
             <a href="/politica-de-privacidade.html" style="color:#94a3b8; text-decoration:none;">
-            Política de Privacidade
+                Política de Privacidade
+            </a>
         </div>
     </div>
 </footer>
@@ -344,5 +381,39 @@
     <img id="imgExpandida" class="conteudo-modal">
 </div>
 <script src="script.js"></script>
+<!-- BOTÃO -->
+<div class="btn-sugestao" onclick="abrirSugestao()">💡</div>
+
+<!-- MODAL -->
+<div class="modal-sugestao" id="modalSugestao">
+  <div class="box-sugestao">
+
+    <div class="topo-sugestao">
+      <span>Enviar sugestão</span>
+      <button onclick="fecharSugestao()">✕</button>
+    </div>
+
+    <form action="https://formsubmit.co/ajax/leotr2016.jb@gmail.com" method="POST"
+        id="formSugestao"
+        >
+
+        <input type="text" name="titulo" placeholder="Título da sugestão" required>
+
+        <textarea name="mensagem" placeholder="Digite sua sugestão..." required></textarea>
+
+        <input type="hidden" name="_captcha" value="false">
+
+        <button type="button" onclick="enviarSugestao()" class="btn-enviar-sugestao">
+        Enviar sugestão
+        </button>
+
+        <div class="msg-sucesso" id="msgSucesso">
+        Sugestão enviada com sucesso!
+        </div>
+
+    </form>
+
+  </div>
+</div>
 </body>
 </html>
