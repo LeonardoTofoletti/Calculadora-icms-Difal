@@ -65,13 +65,40 @@
       font-weight: bold;
     }
 
-    .footer {
-      text-align: center;
-      padding: 30px;
-      border-top: 1px solid #334155;
-      color: #64748b;
-      margin-top: 40px;
-    }
+   /* FOOTER */
+.footer {
+  text-align: center;
+  padding: 30px;
+  border-top: 1px solid #334155;
+  color: #64748b;
+  margin-top: 40px;
+}
+
+/* BOTÕES DO FOOTER */
+.footer-links {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-links a {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  background: #334155;
+  transform: translateY(-2px);
+}
+    
   </style>
 </head>
 <body>
@@ -162,9 +189,18 @@
 
 </div>
 
+<footer>
 <div class="footer">
   <p>© 2026 Calculadora ICMS DIFAL</p>
+
+  <div class="footer-links">
+    <a href="/politica-de-privacidade.html">Política de Privacidade</a>
+    <a href="/termos-de-uso.html">Termos de Uso</a>
+    <a href="/contato.html">Contato</a>
+    <a href="/sobre.html">Sobre</a>
+  </div>
 </div>
+</footer>
 
 </body>
 </html>
