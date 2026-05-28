@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sobre | Calculadora ICMS DIFAL</title>
-
+<meta name="description" content="Conheça a Calculadora ICMS DIFAL: quem somos, nosso objetivo e como nossa ferramenta gratuita ajuda empresas e profissionais com cálculos tributários.">
 <style>
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,17 +13,14 @@ body {
   color: #f1f5f9;
   line-height: 1.7;
 }
-
 .container {
   max-width: 900px;
   margin: 0 auto;
   padding: 60px 20px;
 }
-
-h1 { font-size: 32px; }
+h1 { font-size: 36px; margin-bottom: 10px; }
 h2 { margin-top: 40px; font-size: 22px; color: #4ade80; }
-p { color: #cbd5e1; }
-
+p { color: #cbd5e1; margin-top: 10px; }
 .box {
   background: #1e293b;
   padding: 25px;
@@ -31,20 +28,42 @@ p { color: #cbd5e1; }
   border: 1px solid #334155;
   margin-top: 20px;
 }
-
 .topo {
   background: #020617;
   padding: 20px;
   border-bottom: 1px solid #334155;
   text-align: center;
 }
-
 .topo a {
   color: #4ade80;
   text-decoration: none;
   font-weight: bold;
 }
-/* FOOTER */
+.grid-valores {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.valor-item {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.valor-item .icone { font-size: 30px; margin-bottom: 10px; }
+.valor-item h3 { font-size: 16px; color: #4ade80; margin: 0 0 6px; }
+.valor-item p { font-size: 14px; color: #94a3b8; margin: 0; }
+.aviso {
+  background: rgba(74, 222, 128, 0.07);
+  border-left: 4px solid #4ade80;
+  padding: 16px 20px;
+  border-radius: 0 12px 12px 0;
+  margin-top: 20px;
+  color: #cbd5e1;
+  font-size: 15px;
+}
 .footer {
   text-align: center;
   padding: 30px;
@@ -52,8 +71,6 @@ p { color: #cbd5e1; }
   color: #64748b;
   margin-top: 40px;
 }
-
-/* BOTÕES DO FOOTER */
 .footer-links {
   margin-top: 15px;
   display: flex;
@@ -61,7 +78,6 @@ p { color: #cbd5e1; }
   flex-wrap: wrap;
   gap: 10px;
 }
-
 .footer-links a {
   background: #1e293b;
   border: 1px solid #334155;
@@ -72,14 +88,12 @@ p { color: #cbd5e1; }
   font-size: 13px;
   transition: 0.3s;
 }
-
 .footer-links a:hover {
   background: #334155;
   transform: translateY(-2px);
 }
 </style>
 </head>
-
 <body>
 
 <div class="topo">
@@ -88,24 +102,80 @@ p { color: #cbd5e1; }
 
 <div class="container">
   <h1>Sobre nós</h1>
+  <p style="font-size:17px; color:#94a3b8;">Conheça a história e o propósito por trás da Calculadora ICMS DIFAL.</p>
 
   <div class="box">
+    <h2>Quem somos</h2>
     <p>
-      Este site foi criado para facilitar cálculos tributários de forma simples e acessível.
+      A <strong>Calculadora ICMS DIFAL</strong> é uma ferramenta online gratuita desenvolvida para simplificar o cálculo do 
+      Diferencial de Alíquota do ICMS em operações interestaduais. O projeto nasceu da percepção de que muitos profissionais 
+      e empresas enfrentam dificuldades para realizar esse cálculo com precisão — seja pela complexidade da legislação, 
+      pelas diferentes alíquotas por estado ou pelas variações como base dupla e FCP.
+    </p>
+    <p>
+      O site está disponível desde 2026 e é atualizado regularmente para refletir as alíquotas vigentes e as mudanças 
+      na legislação tributária brasileira.
     </p>
   </div>
 
   <div class="box">
     <h2>Nosso objetivo</h2>
     <p>
-      Ajudar empresas e profissionais a entender melhor o ICMS e seus cálculos.
+      Nosso objetivo é democratizar o acesso a ferramentas fiscais de qualidade. Acreditamos que todo contador, 
+      analista fiscal, empreendedor ou estudante merece ter acesso a uma calculadora tributária confiável, 
+      sem custos e sem complicações.
+    </p>
+    <p>
+      Além da calculadora, produzimos conteúdo educativo para ajudar quem quer entender melhor o funcionamento 
+      do ICMS e do DIFAL na prática.
     </p>
   </div>
 
   <div class="box">
     <h2>O que oferecemos</h2>
+    <div class="grid-valores">
+      <div class="valor-item">
+        <div class="icone">🧮</div>
+        <h3>Calculadora DIFAL</h3>
+        <p>Cálculo com base dupla, FCP e todas as alíquotas interestaduais.</p>
+      </div>
+      <div class="valor-item">
+        <div class="icone">📊</div>
+        <h3>Tabela ICMS</h3>
+        <p>Tabela completa com alíquotas de origem e destino entre todos os estados.</p>
+      </div>
+      <div class="valor-item">
+        <div class="icone">📖</div>
+        <h3>Guia Explicativo</h3>
+        <p>Passo a passo para entender e calcular o DIFAL com exemplos reais.</p>
+      </div>
+      <div class="valor-item">
+        <div class="icone">💡</div>
+        <h3>Gratuito</h3>
+        <p>Todas as ferramentas são 100% gratuitas, sem cadastro ou instalação.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Compromisso com a precisão</h2>
     <p>
-      Ferramentas práticas, conteúdo explicativo e cálculos rápidos para o dia a dia fiscal.
+      As alíquotas utilizadas na calculadora são baseadas na legislação vigente. Porém, a legislação tributária 
+      brasileira é dinâmica e pode sofrer alterações. Por isso, recomendamos sempre confirmar os valores com 
+      um contador ou consultor tributário antes de tomar decisões fiscais.
+    </p>
+    <div class="aviso">
+      ⚠️ Esta ferramenta tem caráter <strong>informativo e educacional</strong>. Os cálculos são estimativas e não 
+      substituem a orientação de um profissional habilitado.
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Fale conosco</h2>
+    <p>
+      Tem dúvidas, sugestões ou encontrou alguma inconsistência? Entre em contato pelo e-mail 
+      <strong>leotr2030.jb@gmail.com</strong> ou use o botão de sugestão disponível na calculadora. 
+      Todo feedback é bem-vindo!
     </p>
   </div>
 </div>
@@ -113,7 +183,6 @@ p { color: #cbd5e1; }
 <footer>
 <div class="footer">
   <p>© 2026 Calculadora ICMS DIFAL</p>
-
   <div class="footer-links">
     <a href="/politica-de-privacidade.html">Política de Privacidade</a>
     <a href="/termos-de-uso.html">Termos de Uso</a>
@@ -122,6 +191,5 @@ p { color: #cbd5e1; }
   </div>
 </div>
 </footer>
-
 </body>
 </html>

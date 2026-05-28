@@ -6,9 +6,12 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="shortcut icon" href="/favicon.png">
     <meta name="robots" content="index, follow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="canonical" href="https://calculadora-icms-difal.vercel.app/">
-    <meta property="og:image" content="URL_DA_IMAGEM">
+    <meta property="og:image" content="https://calculadora-icms-difal.vercel.app/tabela-icms.png">
     <meta name="google-adsense-account" content="ca-pub-2922037030125492">
     <meta name="description" content="Calcule o DIFAL ICMS online grátis em segundos. Ferramenta atualizada com base dupla, FCP e alíquotas interestaduais. Simples, rápido e confiável.">
     <meta name="keywords" content="ICMS DIFAL, calculadora DIFAL, diferencial de alíquota, ICMS interestadual">
@@ -76,7 +79,11 @@
         
         <div class="coluna-calculadora">
             <div class="card animar-entrada">
-                <h1>Calculadora DIFAL</h1>
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Atualizado 2026 · Todas as UFs
+                </div>
+                <h1>Calculadora <span class="gradient-text">DIFAL</span></h1>
 
                 <div class="campo">
                     <label>Valor do produto (R$)</label>
@@ -335,11 +342,11 @@
             <span class="cta">Abrir calculadora → CLICA AQUI</span>
         </a>
 
-        <a href="#" class="card-link">
-            <span class="tag">EM ANALISE</span>
-            <h3>ESTUDO</h3>
-            <p>Estudando novas funcionalidade e calculadora caso queira dar uma sujestão</p>
-            <span class="cta">icone no canto inferior direito para sujestão</span>
+        <a href="como-calcular-difal.html" class="card-link">
+            <span class="tag">Guia</span>
+            <h3>Como Calcular DIFAL</h3>
+            <p>Aprenda o cálculo do DIFAL passo a passo com exemplos práticos, base dupla e FCP explicados.</p>
+            <span class="cta">Ler guia completo →</span>
         </a>
 
 
@@ -413,9 +420,6 @@
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Calculadora DIFAL ICMS. Todos os direitos reservados.</p>
-            
-        </div>
-
         </div>
         <div class="footer-links">
             <a href="/politica-de-privacidade.html">Política de Privacidade</a>
@@ -431,7 +435,7 @@
 </div>
 <script src="script.js"></script>
 <!-- BOTÃO -->
-<div class="btn-sugestao" onclick="abrirSugestao()">💡 Sujestão</div>
+<div class="btn-sugestao" onclick="abrirSugestao()">💡 Sugestão</div>
 
 <!-- MODAL -->
 <div class="modal-sugestao" id="modalSugestao">
